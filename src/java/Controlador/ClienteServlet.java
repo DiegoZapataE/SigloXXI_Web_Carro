@@ -62,6 +62,7 @@ public class ClienteServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try(PrintWriter out  = response.getWriter();){
         processRequest(request, response);
         String accion=request.getParameter("accion");
         switch (accion){
@@ -162,6 +163,9 @@ public class ClienteServlet extends HttpServlet {
             break;
         default:
             throw new AssertionError();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

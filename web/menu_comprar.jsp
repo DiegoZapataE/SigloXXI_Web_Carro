@@ -34,13 +34,23 @@
             }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Bienvenidos al Restaurant Siglo XII</title>
+        <title>Menú Restaurant Siglo XII</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="icono/favicon-32x32.png">
         <%@include file="includes/head.jsp" %>
     </head>
     <body>
         <%@include file="includes/navbar.jsp" %>
         
         <div>
+            <%     
+                            if (request.getAttribute("ErrorSalir") != (null) && (Boolean)request.getAttribute("ErrorSalir") == true ){
+                                out.print("<div style='text-align: center;'>"
+                                        + "</br>"
+                                        + "<p style='color: red'> Tiene una boleta/orden pendiente de pago, por favor pagar antés de salir. </p>"
+                                        + "</div>"
+                                );
+                            }
+                        %>
                     <div class="row">
 			<%
 			if (!Menus.isEmpty()) {
@@ -66,8 +76,7 @@
 			out.println("No hay menús");
 			}
 			%>
-
-                    </div>
-                    </div>
+                </div>
+            </div>
     </body>
 </html>

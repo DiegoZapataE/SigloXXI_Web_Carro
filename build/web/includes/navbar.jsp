@@ -37,6 +37,38 @@
         background-color: darkcyan;
         color: white;
     }
+    ul{
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    ul li{
+        float: left;
+        margin-top: 20px;
+    }
+    ul li a{
+        display: block;
+        text-decoration: none;
+        text-align: center;
+        border-radius: 10px;
+        border-color: black;
+    }
+    a:hover{
+        background-color: darkcyan;
+        color: white;
+    }
+    ul li ul{
+        background-color: transparent;
+    }
+    ul li ul li{
+        float: none;
+    }
+    ul li ul{
+        display: none;
+    }
+    ul li:hover ul{
+        display: block;
+    }
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
@@ -50,6 +82,12 @@
 	<ul class="navbar-nav ml-auto">
 	<li class="nav-item"><a class="nav-link" href="menu_comprar.jsp">Menús</a></li>
 	<li class="nav-item"><a class="nav-link" href="menu_carro.jsp">Carro <span class="badge badge-danger">${carro_list.size()}</span> </a></li>
+        <li class="nav-item"><a class="nav-link accordion" href="metodoDePago.jsp">Metodo de pago</a>
+            <ul>
+                <li><a href="pago-efectivo" onclick="alert('El Garzón vendrá en breve, espere un momento.')">En efectivo</a></li>
+                <li><a href="carro-comprar-webpay">Pago webpay</a></li>
+            </ul>
+        </li>
         <li class="nav-item"><form role="form" name="form" id="form" action="Resv" method="POST">
                                     <input class="nav-link" type="submit" onclick="loadForm();" name="accion" value="Salir">
                                 </form></li>

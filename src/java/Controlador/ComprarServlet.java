@@ -77,6 +77,7 @@ public class ComprarServlet extends HttpServlet {
             ArrayList<Carro> carro_list = (ArrayList<Carro>) request.getSession().getAttribute("carro-list");
             //autentificacion?
             String email = String.valueOf(session.getAttribute("email"));
+            int rutS = (int)session.getAttribute("rut");
             //comprar y lista del carro
             boolean resultado = false;
             
@@ -85,65 +86,128 @@ public class ComprarServlet extends HttpServlet {
             MenuDAO mdao = new MenuDAO();
             MesaDAO medao = new MesaDAO();
             OrdenesDAO oDAO = new OrdenesDAO();
-            if(carro_list != null && email != null){       
-                String detalle = "";
-                int suma = 0;
-                for(Carro c:carro_list){
-                    System.out.println(c.getValor());
-                    suma += c.getCantidad()*c.getValor();
-                    detalle += "|" + c.getCantidad() + " " + c.getNombre_menu() + "|";
-                }
-                    b.setDetalle_boleta(detalle);
-                    b.setValor_boleta(suma);
-                    b.setTipo_pago_id_tipo_pago(1);
-                    b.setEstado_boleta_id_estado_boleta(1);
-                        //se inicia la clase dao
-                    resultado = dao.insertarBoletas(b);
-                    int id = dao.traerUltimaBoleta().getId_boleta() + 1;
-                    session.setAttribute("idBoleta", id);
-                    String fechaRegistro=java.time.LocalDate.now().toString();
+            if (dao.traerBoletaPendientePorRut(rutS)!=0) {
+                if(carro_list != null && email != null){
+                    int id_boleta = dao.traerBoletaPendientePorRut(rutS);
+                    int suma = dao.traerBoletaPorID(id_boleta).getValor_boleta();
+                    String detalle = dao.traerBoletaPorID(id_boleta).getDetalle_boleta();
                     for(Carro c:carro_list){
-                        if(mdao.traerMenu(c.getId_menu()).getTipo_menu_id_tipo_menu()==1){
-                            for (int i = 0; i < c.getCantidad(); i++) {
-                            Ordenes o = new Ordenes();
-                            Mesa m = new Mesa();
-                            int idBoleta = dao.traerUltimaBoleta().getId_boleta();
-                            o.setFecha_orden(Date.valueOf(fechaRegistro)); 
-                            o.setEstado_orden_id_estado_orden(1);
-                            o.setMesas_id_mesas(medao.traerMesa((int)session.getAttribute("rut")).getId_mesa());
-                            o.setMenu_id_menu(c.getId_menu());
-                            o.setBoleta_id_boleta(idBoleta);
-                            o.setUsuarios_rut_usuario(oDAO.traerRutBarConMenorTiempo().getUsuarios_rut_usuario());
-                            //se inicia la clase dao
-                            OrdenesDAO daoo = new OrdenesDAO();
-                            resultado = daoo.insertarOrden(o, c);
+
+                        suma += c.getCantidad()*c.getValor();
+                        detalle += c.getCantidad() + " " + c.getNombre_menu() + " | ";
+                    }
+                        dao.modificarDetalle(id_boleta, detalle, suma);
+                        String fechaRegistro=java.time.LocalDate.now().toString();
+                        for(Carro c:carro_list){
+                            if(mdao.traerMenu(c.getId_menu()).getTipo_menu_id_tipo_menu()==1){
+                                for (int i = 0; i < c.getCantidad(); i++) {
+                                Ordenes o = new Ordenes();
+                                Mesa m = new Mesa();
+                                o.setFecha_orden(Date.valueOf(fechaRegistro)); 
+                                o.setEstado_orden_id_estado_orden(1);
+                                o.setMesas_id_mesas(medao.traerMesa((int)session.getAttribute("rut")).getId_mesa());
+                                o.setMenu_id_menu(c.getId_menu());
+                                o.setBoleta_id_boleta(id_boleta);
+                                o.setUsuarios_rut_usuario(oDAO.traerRutBarConMenorTiempo().getUsuarios_rut_usuario());
+                                //se inicia la clase dao
+                                OrdenesDAO daoo = new OrdenesDAO();
+                                resultado = daoo.insertarOrden(o, c);
+                            }
                         }
+                            if(mdao.traerMenu(c.getId_menu()).getTipo_menu_id_tipo_menu()==2){
+                                for (int i = 0; i < c.getCantidad(); i++) {
+                                Ordenes o = new Ordenes();
+                                Mesa m = new Mesa();
+                                o.setFecha_orden(Date.valueOf(fechaRegistro)); 
+                                o.setEstado_orden_id_estado_orden(1);
+                                o.setMesas_id_mesas(medao.traerMesa((int)session.getAttribute("rut")).getId_mesa());
+                                o.setMenu_id_menu(c.getId_menu());
+                                o.setBoleta_id_boleta(id_boleta);
+                                o.setUsuarios_rut_usuario(oDAO.traerRutCocinaConMenorTiempo().getUsuarios_rut_usuario());
+                                //se inicia la clase dao
+                                OrdenesDAO daoo = new OrdenesDAO();
+                                resultado = daoo.insertarOrden(o, c);
+                            }   
+                        }
+                        if(!resultado)break;
+                }      
+                int id_act = dao.traerUltimaBoleta().getId_boleta();
+                session.setAttribute("idBoleta", id_act);
+                carro_list.clear();
+                    response.sendRedirect("menu_carro.jsp");
+                }else{
+                    if(email == null)response.sendRedirect("menu_comprar.jsp");{
+                    response.sendRedirect("menu_carro.jsp");
                     }
-                        if(mdao.traerMenu(c.getId_menu()).getTipo_menu_id_tipo_menu()==2){
-                            for (int i = 0; i < c.getCantidad(); i++) {
-                            Ordenes o = new Ordenes();
-                            Mesa m = new Mesa();
-                            int idBoleta = dao.traerUltimaBoleta().getId_boleta();
-                            o.setFecha_orden(Date.valueOf(fechaRegistro)); 
-                            o.setEstado_orden_id_estado_orden(1);
-                            o.setMesas_id_mesas(medao.traerMesa((int)session.getAttribute("rut")).getId_mesa());
-                            o.setMenu_id_menu(c.getId_menu());
-                            o.setBoleta_id_boleta(idBoleta);
-                            o.setUsuarios_rut_usuario(oDAO.traerRutCocinaConMenorTiempo().getUsuarios_rut_usuario());
-                            //se inicia la clase dao
-                            OrdenesDAO daoo = new OrdenesDAO();
-                            resultado = daoo.insertarOrden(o, c);
-                        }   
-                    }
-                    if(!resultado)break;
-            }      
-            carro_list.clear();
-            out.print("<h3 style='color:crimson; text-align:center'> El menú ya existe en el carro. <a href='menu_carro.jsp'> Por favor, ve a la pagina del carro.</a></h3>");   
-            }else{
-                if(email == null)response.sendRedirect("menu_carro.jsp");{
-                response.sendRedirect("menu_carro.jsp");
                 }
-            }  
+            }
+            else {
+                
+                if(carro_list != null && email != null){
+                    String detalle = "";
+                    int suma = 0;
+                    for(Carro c:carro_list){
+
+                        suma += c.getCantidad()*c.getValor();
+                        detalle += c.getCantidad() + " " + c.getNombre_menu() + " | ";
+                    }
+                        String fechaahora=java.time.LocalDate.now().toString();
+                        int id = dao.traerUltimaBoleta().getId_boleta() + 1;
+                        b.setId_boleta(id);
+                        b.setDetalle_boleta(detalle);
+                        b.setValor_boleta(suma);
+                        b.setFecha_boleta(Date.valueOf(fechaahora));
+                        b.setRut(rutS);
+                        b.setTipo_pago_id_tipo_pago(1);
+                        b.setEstado_boleta_id_estado_boleta(1);
+                            //se inicia la clase dao
+                        resultado = dao.insertarBoletas(b);
+                        String fechaRegistro=java.time.LocalDate.now().toString();
+                        for(Carro c:carro_list){
+                            if(mdao.traerMenu(c.getId_menu()).getTipo_menu_id_tipo_menu()==1){
+                                for (int i = 0; i < c.getCantidad(); i++) {
+                                Ordenes o = new Ordenes();
+                                Mesa m = new Mesa();
+                                int idBoleta = dao.traerUltimaBoleta().getId_boleta();
+                                o.setFecha_orden(Date.valueOf(fechaRegistro)); 
+                                o.setEstado_orden_id_estado_orden(1);
+                                o.setMesas_id_mesas(medao.traerMesa((int)session.getAttribute("rut")).getId_mesa());
+                                o.setMenu_id_menu(c.getId_menu());
+                                o.setBoleta_id_boleta(idBoleta);
+                                o.setUsuarios_rut_usuario(oDAO.traerRutBarConMenorTiempo().getUsuarios_rut_usuario());
+                                //se inicia la clase dao
+                                OrdenesDAO daoo = new OrdenesDAO();
+                                resultado = daoo.insertarOrden(o, c);
+                            }
+                        }
+                            if(mdao.traerMenu(c.getId_menu()).getTipo_menu_id_tipo_menu()==2){
+                                for (int i = 0; i < c.getCantidad(); i++) {
+                                Ordenes o = new Ordenes();
+                                Mesa m = new Mesa();
+                                int idBoleta = dao.traerUltimaBoleta().getId_boleta();
+                                o.setFecha_orden(Date.valueOf(fechaRegistro)); 
+                                o.setEstado_orden_id_estado_orden(1);
+                                o.setMesas_id_mesas(medao.traerMesa((int)session.getAttribute("rut")).getId_mesa());
+                                o.setMenu_id_menu(c.getId_menu());
+                                o.setBoleta_id_boleta(idBoleta);
+                                o.setUsuarios_rut_usuario(oDAO.traerRutCocinaConMenorTiempo().getUsuarios_rut_usuario());
+                                //se inicia la clase dao
+                                OrdenesDAO daoo = new OrdenesDAO();
+                                resultado = daoo.insertarOrden(o, c);
+                            }   
+                        }
+                        if(!resultado)break;
+                }      
+                int id_act = dao.traerUltimaBoleta().getId_boleta();
+                session.setAttribute("idBoleta", id_act);
+                carro_list.clear();
+                    response.sendRedirect("menu_carro.jsp");
+                }else{
+                    if(email == null)response.sendRedirect("menu_comprar.jsp");{
+                    response.sendRedirect("menu_carro.jsp");
+                    }
+                }
+            }
         }catch(Exception e){
             e.printStackTrace();
         }

@@ -5,18 +5,10 @@
  */
 package Controlador;
 
-import Modelo.Boletas;
 import Modelo.BoletasDAO;
-import Modelo.Carro;
-import Modelo.MenuDAO;
-import Modelo.Mesa;
 import Modelo.MesaDAO;
-import Modelo.Ordenes;
-import Modelo.OrdenesDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Date;
-import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,10 +18,10 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Felipe Fuentes
+ * @author diego
  */
-@WebServlet(name = "ComprarDigitalServlet", urlPatterns = {"/carro-comprar-webpay"})
-public class ComprarDigitalServlet extends HttpServlet {
+@WebServlet(name = "PagoEfectivoServlet", urlPatterns = {"/pago-efectivo"})
+public class PagoEfectivoServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,18 +35,6 @@ public class ComprarDigitalServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet ComprarDigitalServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet ComprarDigitalServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -69,15 +49,25 @@ public class ComprarDigitalServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        try(PrintWriter out = response.getWriter()){
+        processRequest(request, response);
+        
+        try{
             HttpSession session = request.getSession(true);
-            String id_boleta = String.valueOf(session.getAttribute("idBoleta"));
-            String rut_cliente = String.valueOf(session.getAttribute("rut"));
-            response.sendRedirect("http://localhost:57998/pasarela-pago.aspx?boleta="+id_boleta+"&rut="+rut_cliente);
-        }catch(Exception e){
+            int rutS = (int)session.getAttribute("rut");
+            BoletasDAO dao = new BoletasDAO();
+            MesaDAO mdao = new MesaDAO();
+            int id = dao.traerBoletaPendientePorRut(rutS);
+            int valor = dao.traerBoletaPorID(id).getValor_boleta();
+            int mesa = mdao.traerMesa((int)session.getAttribute("rut")).getId_mesa();
+            
+            dao.insertarSolicitudPago(mesa, valor);
+            
+            response.sendRedirect("menu_carro.jsp"); 
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
      * Handles the HTTP <code>POST</code> method.
      *

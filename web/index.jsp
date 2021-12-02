@@ -9,7 +9,7 @@
 <!--- Redireccionar directo si la sesión está activa --->
 <%
     if (session.getAttribute("email")!= null) {
-        response.sendRedirect("menu_comprar.jsp");
+        response.sendRedirect("panelCliente.jsp");
     }
 %>
 <!DOCTYPE html>
@@ -23,7 +23,8 @@
         </script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Siglo XXI</title>
+        <title>Siglo XXI Carro</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="icono/favicon-32x32.png">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -50,10 +51,9 @@
             }
             .login-logo a{
                 color: white!important;
-
             }
             .login-box{
-                margin-top: 14%;
+                margin-top: 5%;
             }
             .btn{
             background-color: palegreen;
@@ -67,6 +67,25 @@
                 background-color: darkcyan;
                 color: white;
             }
+            .leftdiv{
+                float: left;
+                margin-top: 16%;
+                margin-left: 10%;
+                color: white;
+                background-color: black;
+                width: 30%;
+                border: solid black;
+                }
+                .imagen{
+                    width: 100px;
+                    height: 100px;
+                }
+                .logo{
+                    width: 150px;
+                    height: 150px;
+                    margin-left: 80%;
+                    margin-top: -40%;
+                    }
         </style>
     </head>
     <body>
@@ -78,6 +97,9 @@
                 <div class="login-box-body">
                     <p class="login-box-msg">Iniciar Sesión</p>
                     <form role="form" action="Ingresar" method="POST" id="formulario">
+                        <div class="imagen">
+                            <img class="logo" src="images/Logo.png" alt="logo"> 
+                        </div>
                         <div class="form-group has-feedback">
                             <input class="form-control" type="email" id="email" name="email" placeholder="Correo electrónico" required>
                         </div>
@@ -86,7 +108,7 @@
                         </div>
                         <div class="row">
                             <div class="col-xs-8">
-                                <a href="/SigloXXI_Web/reset_password.jsp">¿Olvidaste tu contraseña?</a>
+                                <a href="/SigloXXI_Web_Carro/reset_password.jsp">¿Olvidaste tu contraseña?</a>
                             </div>
                             <div class="col-xs-4">
                                 <button type="submit" class="btn btn-primary btn-block btn-flat">Entrar </button>
@@ -105,11 +127,18 @@
                             </div>
                         </div>
                 <!--- Si no supera la validación, se indicará a través de un mensaje --->
-                <%     
+                <%
                     if (request.getAttribute("Error") != (null) && (Boolean)request.getAttribute("Error") == true ){
                         out.print("<div style='text-align: center;'>"
                                 + "</br>"
                                 + "<p style='color: red'> Correo o contraseña incorrectos. </p>"
+                                + "</div>"
+                        );
+                    }
+                    if (request.getAttribute("ErrorInvitado") != (null) && (Boolean)request.getAttribute("ErrorInvitado") == true ){
+                        out.print("<div style='text-align: center;'>"
+                                + "</br>"
+                                + "<p style='color: red'> Ingreso denegado. Los datos corresponden a una cuenta de invitado. </p>"
                                 + "</div>"
                         );
                     }
@@ -162,6 +191,7 @@
                 }
             });
         </script>
+        <%@include file="/includes/footer.jsp"%>
     </body>
 </html>
 

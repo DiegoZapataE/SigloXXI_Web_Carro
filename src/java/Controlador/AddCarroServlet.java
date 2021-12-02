@@ -95,6 +95,8 @@ public class AddCarroServlet extends HttpServlet {
                         response.sendRedirect("menu_comprar.jsp");
                     }
             }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
     

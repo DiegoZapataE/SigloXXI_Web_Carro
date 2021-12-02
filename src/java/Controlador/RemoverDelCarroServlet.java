@@ -76,6 +76,8 @@ public class RemoverDelCarroServlet extends HttpServlet {
             }else{
                 response.sendRedirect("menu_carro.jsp");
             }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

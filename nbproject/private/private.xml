@@ -3,23 +3,35 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/ClienteServlet.java</file>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/menu_carro.jsp</file>
             <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/index.jsp</file>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/ordenes.jsp</file>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/includes/head.jsp</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/Cliente.java</file>
             <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/Boletas.java</file>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/registrarC.jsp</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/reset_password.jsp</file>
             <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/BoletasDAO.java</file>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/menu_comprar.jsp</file>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/Conexion.java</file>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/AddCarroServlet.java</file>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/includes/footer.jsp</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/metodoDePago.jsp</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/MesaDAO.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/RemoverDelCarroServlet.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/OrdenesDAO.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/MesasDisponibles.java</file>
             <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/includes/navbar.jsp</file>
-            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/ClienteDAO.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/PagoEfectivoServlet.java</file>
             <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/Ingresar.java</file>
             <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/Resv.java</file>
             <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/ComprarServlet.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/menu_carro.jsp</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/MenuDAO.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/Carro.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/CambiarPass.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/ordenes.jsp</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/registrarC.jsp</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/menu_comprar.jsp</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/Conexion.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/web/logout.jsp</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/AddCarroServlet.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/ReservaDAO.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Modelo/ClienteDAO.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/CantidadIncDecServlet.java</file>
+            <file>file:/C:/Users/diego/Desktop/SigloXXI_Web_Carro/src/java/Controlador/ComprarDigitalServlet.java</file>
         </group>
     </open-files>
 </project-private>

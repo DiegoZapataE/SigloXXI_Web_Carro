@@ -23,6 +23,7 @@
         </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Siglo XXI</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="icono/favicon-32x32.png">
     <form ></form>
     </head>
     

@@ -1,6 +1,6 @@
 <%-- 
-    Document   : ordenes
-    Created on : 07-11-2021, 0:18:48
+    Document   : metodoDePago
+    Created on : 29-11-2021, 1:29:59
     Author     : diego
 --%>
 
@@ -22,6 +22,9 @@
             h3{
                 margin-left: 25%;
             }
+            .mx-3{
+                margin-left: 25%
+            }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Ordenes</title>
@@ -29,7 +32,11 @@
     </head>
     <body>
         <%@include file="includes/navbarorden.jsp" %>
-        <h3>La orden ha sido generada con exito...</h3>
-        <h3>Gracias por su paciencia...</h3>
+        <h3>Metodos de pago disponibles</h3>
+        <div class="login-box">
+            <a class="mx-3 btn btn-primary" href="" onclick="alert('El mesero se acercará a su mesa...')">Pagar en efectivo</a>
+            <a class="mx-3 btn btn-primary" href="carro-comprar-webpay">Pago webpay</a>
+        </div>
+        
     </body>
 </html>

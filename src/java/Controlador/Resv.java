@@ -5,6 +5,7 @@
  */
 package Controlador;
 
+import Modelo.BoletasDAO;
 import Modelo.Reserva;
 import Modelo.ReservaDAO;
 import Modelo.Cliente;
@@ -13,6 +14,7 @@ import Modelo.EmailDAO;
 import Modelo.HorarioReserva;
 import Modelo.HorarioReservaDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -69,6 +71,7 @@ public class Resv extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try(PrintWriter out = response.getWriter()){
         processRequest(request, response);
         String accion=request.getParameter("accion");
         HttpSession session = request.getSession(true); // reusar
@@ -94,8 +97,17 @@ public class Resv extends HttpServlet {
                 break;
             case "Salir":
                 //Cerrar sesión
-                session.removeAttribute("email");
-                response.sendRedirect(request.getContextPath() + "/index.jsp");
+                int rutS = (int)session.getAttribute("rut");
+                BoletasDAO bdao = new BoletasDAO();
+                
+                if(bdao.traerRutBoleta(rutS)==rutS){
+                    boolean error = true;
+                    request.setAttribute("ErrorSalir", error);
+                    request.getRequestDispatcher("menu_comprar.jsp").forward(request, response);
+                }else{
+                    session.removeAttribute("email");
+                    response.sendRedirect(request.getContextPath() + "/index.jsp");
+                }
                 break;
             case "ModificarVentana":
                 request.getRequestDispatcher("modificarCliente.jsp").forward(request, response);
@@ -199,6 +211,9 @@ public class Resv extends HttpServlet {
                 break;
             default:
                 throw new AssertionError();
+            }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 

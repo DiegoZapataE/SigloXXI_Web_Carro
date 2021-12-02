@@ -8,7 +8,6 @@ package Controlador;
 import Modelo.Cliente;
 import Modelo.ClienteDAO;
 import Modelo.EmailDAO;
-import com.sun.xml.internal.ws.util.StringUtils;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.security.SecureRandom;
@@ -18,6 +17,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.util.UUID;
+import static org.apache.commons.codec.digest.DigestUtils.sha256Hex;
 /**
  *
  * @author Felipe Fuentes
@@ -35,6 +35,7 @@ public class CambiarPass extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        try(PrintWriter out = response.getWriter()){
         response.setContentType("text/html;charset=UTF-8");
         
         HttpSession session = request.getSession(true); // reusar
@@ -43,18 +44,19 @@ public class CambiarPass extends HttpServlet {
         ClienteDAO clDAO = new ClienteDAO();
         
         //Recuper datos ingresados
-        String email=String.valueOf(request.getParameter("email"));
+        String email=String.valueOf(request.getParameter("email").toLowerCase());
         String pass = clDAO.randomString(12);
-        System.out.println(pass);
-        System.out.println(email);  
         //Setear datos para el correo
-        clDAO.modificarPass(email, pass);
+        clDAO.modificarPass(email, sha256Hex(pass));
         cl.setEmail_cliente(email);
         cl.setClave_cliente(pass);
         //Enviar correo
         eDAO.sendEmailCambiarPass(cl);
         
         response.sendRedirect(request.getContextPath() + "/index.jsp");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

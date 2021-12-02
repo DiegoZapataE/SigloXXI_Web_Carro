@@ -19,13 +19,13 @@ public class Boletas {
     Date fecha_boleta;
     int tipo_pago_id_tipo_pago;
     int estado_boleta_id_estado_boleta;
-    String rut;
+    int rut;
     
     public Boletas() {
 
     }
 
-    public Boletas(int id_boleta, String detalle_boleta, int valor_boleta, Date fecha_boleta, int tipo_pago_id_tipo_pago, int estado_boleta_id_estado_boleta, String rut) {
+    public Boletas(int id_boleta, String detalle_boleta, int valor_boleta, Date fecha_boleta, int tipo_pago_id_tipo_pago, int estado_boleta_id_estado_boleta, int rut) {
         this.id_boleta = id_boleta;
         this.detalle_boleta = detalle_boleta;
         this.valor_boleta = valor_boleta;
@@ -83,11 +83,11 @@ public class Boletas {
         this.estado_boleta_id_estado_boleta = estado_boleta_id_estado_boleta;
     }
 
-    public String getRut() {
+    public int getRut() {
         return rut;
     }
 
-    public void setRut(String rut) {
+    public void setRut(int rut) {
         this.rut = rut;
     }
     

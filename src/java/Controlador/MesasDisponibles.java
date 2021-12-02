@@ -60,6 +60,8 @@ public class MesasDisponibles extends HttpServlet {
                 response.setContentType("text/html");
                 response.getWriter().write(mesasLista);
             }
+        }catch(Exception e){
+            e.printStackTrace();
         }
     }
 }

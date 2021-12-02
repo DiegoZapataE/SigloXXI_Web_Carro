@@ -41,17 +41,27 @@
             }
         </style>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Carro Siglo XXI</title>
+        <title>Carro Restaurant Siglo XXI</title>
+        <link rel="icon" type="image/png" sizes="32x32" href="icono/favicon-32x32.png">
         <%@include file="includes/head.jsp" %>
     </head>
     <body>
         <%@include file="includes/navbar.jsp" %>
         
         <div class="container">
+            <%     
+                            if (request.getAttribute("ErrorSalir") != (null) && (Boolean)request.getAttribute("ErrorSalir") == true ){
+                                out.print("<div style='text-align: center;'>"
+                                        + "</br>"
+                                        + "<p style='color: red'> Tiene una boleta/orden pendiente de pago, por favor pagar antés de salir. </p>"
+                                        + "</div>"
+                                );
+                            }
+                        %>
             <div class="d-flex py-3">
                 <h3>Precio total: $ ${ (total>0)?total:0}</h3>
-                <a class="mx-3 btn btn-primary" href="carro-comprar">Efectivo</a>
-                <a class="mx-3 btn btn-primary" href="carro-comprar-webpay">Pago digital</a>
+                <a class="mx-3 btn btn-primary" href="carro-comprar" onclick="alert('La orden será generada...')">Generar orden</a>
+                <!---<a class="mx-3 btn btn-primary" href="carro-comprar-webpay">Pago digital</a>--->
             </div>
             <table class="table table-loght">
                 <thead>
@@ -86,7 +96,6 @@
                         <%}
                     }
                     %>
-                    
                 </tbody>
             </table>
         </div>
