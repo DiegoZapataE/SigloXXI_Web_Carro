@@ -181,15 +181,16 @@ public class BoletasDAO {
         return bo;
     }
    
-   public boolean insertarSolicitudPago (int mesa, int valor){
+   public boolean insertarSolicitudPago (int boleta, int mesa, int valor){
         boolean resultado = false;
         try{
             con = c.conectar();
             ps = con.prepareStatement("begin\n" +
-                                      "  PKG_SOLICITAR_PAGO.INSERTAR(?,?);\n" +
+                                      "  PKG_SOLICITAR_PAGO.INSERTAR(?,?,?);\n" +
                                       "end;");
-            ps.setInt(1, mesa);
-            ps.setInt(2, valor);
+            ps.setInt(1,boleta);
+            ps.setInt(2, mesa);
+            ps.setInt(3, valor);
             int update = ps.executeUpdate();
             if (update > 0) {
                 resultado = true;

@@ -53,6 +53,18 @@
             background-color: darkcyan;
             color: white;
             }
+            .btn{
+            background-color: palegreen;
+            color: black;
+            border-color: black;
+            }
+            .btn{
+                transition-duration: 0.4;
+            }
+            .btn:hover{
+                background-color: darkcyan;
+                color: white;
+            }
 
         </style>
     </head>

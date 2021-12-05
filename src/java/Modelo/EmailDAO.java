@@ -32,9 +32,9 @@ public class EmailDAO {
 
     private Connection conn = new Conexion().conectar();
     SimpleDateFormat dat = new SimpleDateFormat("dd-MM-yyyy");
-    public void sendEmailReserva(Cliente cl, Reserva rs, String email) throws UnsupportedEncodingException {
+    public void sendEmailReserva(Cliente cl, String email) throws UnsupportedEncodingException {
         ClienteDAO cli = new ClienteDAO();
-        HorarioReservaDAO hrDAO = new HorarioReservaDAO();
+//        HorarioReservaDAO hrDAO = new HorarioReservaDAO();
         String mensaje = "<!Doctype html>\n"
                 + "<html lang='es'>\n"
                 + "  <head>\n"
@@ -419,7 +419,7 @@ public class EmailDAO {
                 + "                      <th>\n"
                 + "                        Fecha solicitud procesada:\n"
                 + "                      </th>\n"
-                + "                      <td>\n" + dat.format(rs.getFecha_registro())
+//                + "                      <td>\n" + dat.format(rs.getFecha_registro())
                 + "                      </td>\n"
                 + "                    </tr>\n"
                 + "\n"
@@ -427,7 +427,7 @@ public class EmailDAO {
                 + "                      <th>\n"
                 + "                        Fecha agendada de reserva:\n"
                 + "                      </th>\n"
-                + "                      <td>\n" + dat.format(rs.getFecha_reserva())
+//                + "                      <td>\n" + dat.format(rs.getFecha_reserva())
                 + "                      </td>\n"
                 + "                    </tr>\n"
                 + "\n"
@@ -435,7 +435,7 @@ public class EmailDAO {
                 + "                      <th>\n"
                 + "                        Horario:\n"
                 + "                      </th>\n"
-                + "                      <td>\n" + rs.getHorario_reserva()
+//                + "                      <td>\n" + rs.getHorario_reserva()
                 + "                      </td>\n"
                 + "                    </tr>\n"
                 + "\n"
@@ -443,7 +443,7 @@ public class EmailDAO {
                 + "                      <th>\n"
                 + "                        Número mesa:\n"
                 + "                      </th>\n"
-                + "                      <td>\n" +  rs.getMesas_id_mesa()
+//                + "                      <td>\n" +  rs.getMesas_id_mesa()
                 + "                      </td>\n"
                 + "                    </tr>\n"
                 + "                  </table>\n"
@@ -527,10 +527,10 @@ public class EmailDAO {
 
     }
     
-    public void sendEmailReservaCancelada(Cliente cl, Reserva rs, String email) throws UnsupportedEncodingException {
+    public void sendEmailReservaCancelada(Cliente cl, String email) throws UnsupportedEncodingException {
         ClienteDAO cli = new ClienteDAO();
         Date date = new Date(System.currentTimeMillis());
-        HorarioReservaDAO hrDAO = new HorarioReservaDAO();
+//        HorarioReservaDAO hrDAO = new HorarioReservaDAO();
         String mensaje = "<!Doctype html>\n"
                 + "<html lang='es'>\n"
                 + "  <head>\n"
@@ -923,7 +923,7 @@ public class EmailDAO {
                 + "                      <th>\n"
                 + "                        Fecha agendada de reserva:\n"
                 + "                      </th>\n"
-                + "                      <td>\n" + dat.format(rs.getFecha_reserva())
+//                + "                      <td>\n" + dat.format(rs.getFecha_reserva())
                 + "                      </td>\n"
                 + "                    </tr>\n"
                 + "\n"
@@ -931,7 +931,7 @@ public class EmailDAO {
                 + "                      <th>\n"
                 + "                        Horario:\n"
                 + "                      </th>\n"
-                + "                      <td>\n" + rs.getHorario_reserva()
+//                + "                      <td>\n" + rs.getHorario_reserva()
                 + "                      </td>\n"
                 + "                    </tr>\n"
                 + "\n"
@@ -939,7 +939,7 @@ public class EmailDAO {
                 + "                      <th>\n"
                 + "                        Número mesa:\n"
                 + "                      </th>\n"
-                + "                      <td>\n" +  rs.getMesas_id_mesa()
+//                + "                      <td>\n" +  rs.getMesas_id_mesa()
                 + "                      </td>\n"
                 + "                    </tr>\n"
                 + "                  </table>\n"

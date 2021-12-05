@@ -60,7 +60,7 @@ public class PagoEfectivoServlet extends HttpServlet {
             int valor = dao.traerBoletaPorID(id).getValor_boleta();
             int mesa = mdao.traerMesa((int)session.getAttribute("rut")).getId_mesa();
             
-            dao.insertarSolicitudPago(mesa, valor);
+            dao.insertarSolicitudPago(id, mesa, valor);
             
             response.sendRedirect("menu_carro.jsp"); 
         } catch (Exception e) {
